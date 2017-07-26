@@ -1,0 +1,3 @@
+- git clone
+- npm or yarn install
+- yarn start
