@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router,
         Route, Switch } from 'react-router-dom'
+import faker from 'faker'
 
 import NavBar from './components/NavBar'
 import About from './About'
@@ -9,17 +10,29 @@ import Products from './Products'
 import Cart from './Cart'
 
 
+
 class App extends Component {
   state = {
-    products: [
-      { title: "toothpaste" },
-      { title: "deodorant" },
-      { title: "shampoo" },
-      { title: "mouth wash" },
-      { title: "soap" }
-    ],
+    products: undefined,
     cart: [],
     cartCount: 0,
+  }
+
+  componentDidMount() {
+    this.makeProducts()
+  }
+
+  makeProducts(){
+    let tempProducts = [];
+    for (var i = 0; i < 25; i++) {
+      let prod = {
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        img: faker.image.image()
+      }
+      tempProducts.push(prod)
+    }
+    this.setState({ products: tempProducts })
   }
 
   addItemToCart = (item) => {
@@ -31,27 +44,31 @@ class App extends Component {
   render(){
     return (
       <Router>
-      <div>
-        <NavBar cartCount={this.state.cartCount}/>
-        <Route exact path="/" render={() => (
-              <div>
-                <h1> Direct Render Example </h1>
-              </div>
-            )}/>
-        <Route path="/about" component={About}/>
-        <Route path="/products" render={() => (
-          <Products
-            addItemToCart={this.addItemToCart}
-            products={this.state.products}
-          />
-        )}/>
-        <Route path="/cart" render={() => (
-          <Cart
-            products={this.state.cart}
-          />
-        )}/>
+        <div>
+          <NavBar cartCount={this.state.cartCount}/>
+          <Route exact path="/" render={() => (
+                <div>
+                  <h1> Direct Render Example </h1>
+                </div>
+              )}/>
+          <Route path="/about" component={About}/>
+          {
+            this.state.products
+            ? <Route path="/products" render={() => (
+                <Products
+                  addItemToCart={this.addItemToCart}
+                  products={this.state.products}
+                />
+              )}/>
+            : <h3>Still creating products...</h3>
+          }
+          <Route path="/cart" render={() => (
+            <Cart
+              products={this.state.cart}
+            />
+          )}/>
 
-      </div>
+        </div>
       </Router>
     )
   }
