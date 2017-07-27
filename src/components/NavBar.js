@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import CartIcon from 'react-icons/lib/fa/cart-arrow-down'
 
 const style = {
   nav: {
@@ -24,7 +25,7 @@ const Navigation = ({cartCount}) => {
         <NavLink to="/"> home </NavLink>
         <NavLink to="/about"> about </NavLink>
         <NavLink to="/products"> products </NavLink>
-        <NavLink to="/cart"> cart <span style={style.cart}> {cartCount} </span> </NavLink>
+        <NavLink to="/cart"> <CartIcon/> <span style={style.cart}> {cartCount} </span> </NavLink>
       </ul>
     </div>
   )

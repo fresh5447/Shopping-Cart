@@ -14,10 +14,16 @@ class App extends Component {
     products: undefined,
     cart: [],
     cartCount: 0,
+    opacity: 1
   }
 
   componentDidMount() {
     this.makeProducts()
+    setInterval(() => {
+      this.setState((prevState) => ({
+        opacity: prevState.opacity === 1 ? 0.7 : 1
+      }))
+    }, 2500)
   }
 
   makeProducts(){
@@ -68,6 +74,7 @@ class App extends Component {
                   addItem={true}
                   addItemToCart={this.addItemToCart}
                   products={this.state.products}
+                  opacity={this.state.opacity}
                 />
               )}/>
             : <h3>Still creating products...</h3>
