@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router,
-        Route, Switch } from 'react-router-dom'
+        Route, Switch, Link } from 'react-router-dom'
 import faker from 'faker'
 
 import NavBar from './components/NavBar'
 import About from './About'
 import Products from './Products'
 import Cart from './Cart'
-
-
 
 class App extends Component {
   state = {
@@ -28,7 +26,8 @@ class App extends Component {
       let prod = {
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
-        img: faker.image.image()
+        img: faker.image.image(),
+        id: i
       }
       tempProducts.push(prod)
     }
@@ -38,7 +37,15 @@ class App extends Component {
   addItemToCart = (item) => {
     let newState = this.state.cart.concat(item)
     this.setState({cart: newState, cartCount: newState.length})
-    alert(`${item.title} added to cart`)
+    alert(`${item.name} added to cart`)
+  }
+
+  removeItemFromCart = (itemId) => {
+    console.log(`About to remove item ${itemId} from cart`)
+    let newState = this.state.cart.filter(item => {
+      return itemId !== item.id
+    })
+    this.setState({cart: newState, cartCount: newState.length})
   }
 
   render(){
@@ -47,8 +54,10 @@ class App extends Component {
         <div>
           <NavBar cartCount={this.state.cartCount}/>
           <Route exact path="/" render={() => (
-                <div>
-                  <h1> Direct Render Example </h1>
+                <div className="jumbotron">
+                  <h3> Bamazon. Worlds largest collection of online goods. </h3>
+                  <p> Go ahead and try not to buy something. </p>
+                  <Link to="/products"> Shop Now </Link>
                 </div>
               )}/>
           <Route path="/about" component={About}/>
@@ -56,17 +65,23 @@ class App extends Component {
             this.state.products
             ? <Route path="/products" render={() => (
                 <Products
+                  addItem={true}
                   addItemToCart={this.addItemToCart}
                   products={this.state.products}
                 />
               )}/>
             : <h3>Still creating products...</h3>
           }
-          <Route path="/cart" render={() => (
-            <Cart
-              products={this.state.cart}
-            />
-          )}/>
+          {
+            this.state.cart
+            ? <Route path="/cart" render={() => (
+                <Cart
+                  addItem={false}
+                  removeItemFromCart={this.removeItemFromCart}
+                  products={this.state.cart}
+                />
+            )}/> : <h1>Cart Is Empty</h1>
+          }
 
         </div>
       </Router>
@@ -75,14 +90,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// <Route path="/shop" render={() => (
-//       <h1> Explore the shopping cart </h1>
-//     )}/>
-// <Route path="/shop/cart" render={() => (
-//       <h1> Hello Cart Two </h1>
-//     )}/>
-// <Route path="/shop/products" render={() => (
-//     <Products products={this.state.products} />
-//   )}/>

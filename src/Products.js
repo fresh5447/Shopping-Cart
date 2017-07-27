@@ -1,15 +1,21 @@
 import React from 'react'
-import Product from './Product'
 
 const Products = ({products, addItemToCart}) => {
   return (
     <div>
-      <h4>Products</h4>
-        <div>
-          {
-            products.map(p => <Product name={p.name} img={p.img} price={p.price} />)
-          }
-        </div>
+      <div className="product-flex-container">
+        {
+          products.map(p =>
+            (
+              <div key={p.id}>
+                <h5>{p.name}</h5>
+                <p>$ {p.price}</p>
+                <img src={p.img} />
+                <button onClick={() => addItemToCart(p) }> Add To Cart </button>
+              </div>
+            )
+        )}
+      </div>
     </div>
   )
 }

@@ -1,0 +1,33 @@
+.product-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-flex-container div {
+  margin: 10px;
+  width: calc(50% - 20px);
+  border: solid 3px #bdc3c7;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-flex-container p {
+  font-size: 20px;
+  color: #3498db;
+}
+
+.product-flex-container div > img {
+  max-width: 50%;
+  border: solid 3px #2c3e50;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.product-flex-container div > button {
+  background-color: #2ecc71;
+  border: solid 3px #27ae60;
+  border-radius: 20px;
+  margin: 10px;
+}
