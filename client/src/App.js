@@ -19,11 +19,24 @@ class App extends Component {
 
   componentDidMount() {
     this.makeProducts()
-    setInterval(() => {
-      this.setState((prevState) => ({
-        opacity: prevState.opacity === 1 ? 0.5 : 1
-      }))
-    }, 2500)
+
+    let authObj = {
+                    method: 'GET',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'X-AUTH-TOKEN': '2d4c2733-aa49-48fa-9109-89519e25e4eb'
+                    }
+                  }
+    fetch('https://griz-atom-api.bequickapps.com/products', authObj)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+      })
+      .catch(e => {
+        console.log(e);
+        return e;
+      })
   }
 
   makeProducts(){
