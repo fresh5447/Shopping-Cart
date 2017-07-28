@@ -21,7 +21,7 @@ class App extends Component {
     this.makeProducts()
     setInterval(() => {
       this.setState((prevState) => ({
-        opacity: prevState.opacity === 1 ? 0.7 : 1
+        opacity: prevState.opacity === 1 ? 0.5 : 1
       }))
     }, 2500)
   }
