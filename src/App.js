@@ -26,7 +26,7 @@ class App extends Component {
     }, 2500)
   }
 
-  makeProducts(){
+  makeProducts = () => {
     let tempProducts = [];
     for (var i = 0; i < 25; i++) {
       let prod = {
@@ -60,12 +60,13 @@ class App extends Component {
         <div>
           <NavBar cartCount={this.state.cartCount}/>
           <Route exact path="/" render={() => (
-                <div className="jumbotron">
-                  <h3> Bamazon. Worlds largest collection of online goods. </h3>
-                  <p> Go ahead and try not to buy something. </p>
-                  <Link to="/products"> Shop Now </Link>
-                </div>
-              )}/>
+            <div className="jumbotron">
+              <h3> Bamazon. Worlds largest collection of online goods. </h3>
+              <p> Go ahead and try not to buy something. </p>
+              <Link to="/products"> Shop Now </Link>
+            </div>
+          )}/>
+
           <Route path="/about" component={About}/>
           {
             this.state.products
