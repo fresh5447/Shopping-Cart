@@ -19,7 +19,6 @@ class Database extends Component {
         price: faker.commerce.price(),
         img: faker.image.image()
       }
-      console.log(prod.price)
       products.push(prod)
     }
 
