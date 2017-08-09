@@ -18,16 +18,24 @@ const style = {
   }
 }
 
-const Navigation = ({cartCount}) => {
+const Navigation = (props) => {
+  const cartCount = props.cartCount
+
   return (
-    <div style={style.nav}>
+    <nav style={style.nav}>
       <ul style={style.itemContainer}>
-        <NavLink to="/"> home </NavLink>
-        <NavLink to="/about"> about </NavLink>
-        <NavLink to="/products"> products </NavLink>
-        <NavLink to="/cart"> <CartIcon/> <span style={style.cart}> {cartCount} </span> </NavLink>
+        <NavLink to="/">Home</NavLink>
+
+        <NavLink to="/about">About</NavLink>
+
+        <NavLink to="/products">Products</NavLink>
+
+        <NavLink to="/cart">
+          <CartIcon />
+          <span style={style.cart}>Cart: {cartCount}</span>
+        </NavLink>
       </ul>
-    </div>
+    </nav>
   )
 }
 
